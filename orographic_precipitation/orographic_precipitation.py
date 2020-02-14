@@ -1,6 +1,11 @@
 
 #!/usr/bin/env python
 
+import numpy as np
+import matplotlib.pyplot as plt
+
+EPS = np.finfo(float).eps
+
 def compute_orographic_precip(elevation, dx, dy, **param):
     """Compute orographic precipitation.
 
@@ -98,7 +103,7 @@ def gauss_topography(dx, dy):
     x, y = np.arange(-100e3, 200e3, dx), np.arange(-150e3, 150e3, dy)
     X, Y = np.meshgrid(x, y)
 
-    h = (h_max * 
+    h = (h_max *
          np.exp(-(((X - x0)**2 / (2 * sigma_x**2)) +
                   ((Y - y0)**2 / (2 * sigma_y**2)))))
 

@@ -3,5 +3,3 @@ from orographic_precipitation import (
     gauss_topography,
     plot2d,
 )
-
-EPS = np.finfo(float).eps
