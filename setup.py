@@ -10,7 +10,7 @@ setuptools.setup(
      long_description=long_description,
      long_description_content_type="text/markdown",
      url="https://github.com/rlange2/orographic-precipitation",
-     download_url="",
+     download_url="https://github.com/rlange2/orographic-precipitation/archive/0.1.tar.gz",
      license = "MIT",
      maintainer="Raphael Lange",
      maintainer_email="raphael.lange@gfz-potsdam.de",
