@@ -20,6 +20,7 @@ Installation
 ------------
 
 Required dependencies:
+
 * Python 3.6 or later
 * `numpy`_
 * `matplotlib`_
