@@ -1,11 +1,6 @@
 
 #!/usr/bin/env python
 
-import numpy as np
-import matplotlib.pyplot as plt
-
-EPS = np.finfo(float).eps
-
 def compute_orographic_precip(elevation, dx, dy, **param):
     """Compute orographic precipitation.
 
