@@ -91,27 +91,3 @@ def compute_orographic_precip(elevation, dx, dy, **param):
     P[P < 0] = 0
 
     return P
-
-def gauss_topography(dx, dy):
-    """Returns synthetic topography for testing. Analogous to Figs 3 and 4 in Smith and Barstedt, 2004.
-    """
-    h_max = 500.
-    x0 = -25e3
-    y0 = 0
-    sigma_x = sigma_y = 15e3
-
-    x, y = np.arange(-100e3, 200e3, dx), np.arange(-150e3, 150e3, dy)
-    X, Y = np.meshgrid(x, y)
-
-    h = (h_max *
-         np.exp(-(((X - x0)**2 / (2 * sigma_x**2)) +
-                  ((Y - y0)**2 / (2 * sigma_y**2)))))
-
-    return X, Y, h
-
-def plot2d(X, Y, field):
-    """Function that plots precipitation matrices"""
-    fig, ax = plt.subplots(figsize=(6, 6))
-    pc = ax.pcolormesh(X, Y, field)
-    ax.set_aspect(1)
-    fig.colorbar(pc)

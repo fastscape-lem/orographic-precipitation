@@ -28,11 +28,9 @@ Required dependencies:
 .. _`numpy`: https://numpy.org
 .. _`matplotlib`: https://matplotlib.org/3.1.1/index.html
 
-orographic precipitation can be installed using `pip`
+orographic precipitation can be installed using ``pip``::
 
-.. code-block::
-
-  $ pip install orographic_precipitation
+    $ pip install orographic_precipitation
 
 Usage
 -----
@@ -42,13 +40,37 @@ Usage
 
 .. code-block:: python
 
-    from orographic_precipitation import (compute_orographic_precip,
-                                         gauss_topography,
-                                         plot2d)
+    from orographic_precipitation import compute_orographic_precip
 
-2. Create example topography, *i.e.* an isolated circular Gaussian hill.
+2. Create example topography, for instance, an isolated circular Gaussian hill
+(see original publication, Fig. 4 a-c).
 
 .. code-block:: python
+
+    def gauss_topography(dx, dy):
+      """Returns synthetic topography for testing.
+      Analogous to Fig 4 in Smith and Barstedt, 2004.
+      """
+      h_max = 500.
+      x0 = -25e3
+      y0 = 0
+      sigma_x = sigma_y = 15e3
+
+      x, y = np.arange(-100e3, 200e3, dx), np.arange(-150e3, 150e3, dy)
+      X, Y = np.meshgrid(x, y)
+
+      h = (h_max *
+           np.exp(-(((X - x0)**2 / (2 * sigma_x**2)) +
+                    ((Y - y0)**2 / (2 * sigma_y**2)))))
+
+      return X, Y, h
+
+    def plot2d(X, Y, field):
+      """Function that plots precipitation matrices"""
+      fig, ax = plt.subplots(figsize=(6, 6))
+      pc = ax.pcolormesh(X, Y, field)
+      ax.set_aspect(1)
+      fig.colorbar(pc)
 
     dx = 750.
     dy = 750.
@@ -73,12 +95,12 @@ Usage
     'latitude': 40,
     'p0': 7,                          # uniform precipitation rate
     'windspeed': 10,
-    'winddir': 270,
+    'winddir': 270,                   # wind direction (270: west)
     'tau_c': 1000,                    # conversion time
     'tau_f': 1000,                    # fallout time
-    'nm': 0.005,                      # moist_stability_freq
-    'hw': 5000,                       # water_vapor_scale_height
-    'cw': rhosref * Gamma_m / gamma   # uplift_sensitivity
+    'nm': 0.005,                      # moist stability frequency
+    'hw': 5000,                       # water vapor scale height
+    'cw': rhosref * Gamma_m / gamma   # uplift sensitivity
     }
 
     P = compute_orographic_precip(elevation, dx, dy, **param)
