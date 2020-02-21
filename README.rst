@@ -23,10 +23,8 @@ Required dependencies:
 
 * Python 3.6 or later
 * `numpy`_
-* `matplotlib`_
 
 .. _`numpy`: https://numpy.org
-.. _`matplotlib`: https://matplotlib.org/3.1.1/index.html
 
 orographic precipitation can be installed using ``pip``::
 
@@ -40,6 +38,7 @@ Usage
 
 .. code-block:: python
 
+    import matplotlib.pyplot as plt
     from orographic_precipitation import compute_orographic_precip
 
 2. Create example topography, for instance, an isolated circular Gaussian hill
