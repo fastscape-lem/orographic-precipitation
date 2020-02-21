@@ -1,11 +1,13 @@
 import setuptools
+import versioneer
 
 with open("README.rst", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
      name="orographic_precipitation",
-     version='0.1a',
+     version=versioneer.get_version(),
+     cmdclass=versioneer.get_cmdclass(),
      description="Linear Theory of Orographic Precipitation",
      long_description=long_description,
      long_description_content_type="text/markdown",
