@@ -30,6 +30,12 @@ orographic precipitation can be installed using ``pip``::
 
     $ pip install orographic_precipitation
 
+Alternatively, you can install orographic_precipitation from `conda-forge`_::
+
+    $ conda install orographic_precipitation -c conda-forge
+
+.. _`conda-forge`: https://conda-forge.org
+
 Usage
 -----
 
