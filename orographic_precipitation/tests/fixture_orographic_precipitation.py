@@ -1,6 +1,6 @@
 import pytest
 
-@fixture.pytest
+@pytest.fixture
 def input_params():
     gamma = -5.8e-3    #-6.49
     Gamma_m = -6.5e-3  #-5

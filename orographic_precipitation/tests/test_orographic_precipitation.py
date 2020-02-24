@@ -3,9 +3,17 @@ import numpy as np
 import pytest
 
 from orographic_precipitation import compute_orographic_precip
-from fixture_orographic_precipitation import input_params
+from orographic_precipitation.tests.fixture_orographic_precipitation import input_params
 
-def test_compute_orographic_precip():
-    input = input_params()
+pytest.mark.usefixtures(input_params)
+def test_compute_orographic_precip(input_params):
+    dx = dy = 0.01
+    length = 1.5
+    x = np.arange(0, length, dx)
+    y = np.arange(0, length, dy)
+    xx, yy = np.meshgrid(x, y, sparse=True)
+    z = np.sin(xx**2 + yy**2) / (xx**2 + yy**2)
 
-    assert type(input).__module__ == np.__name__
+    output = compute_orographic_precip(z, dx, dy, **input_params)
+
+    assert type(output).__module__ == np.__name__, print(f"type: {type(output).__module__ }, np: {np.__name__}")
