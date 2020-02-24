@@ -5,9 +5,9 @@ python:
   - "3.8"
 install:
   - "pip install -e ."
+  - pip install coverage==4.5.4
 script:
   - pytest
 
 after_success:
-  - codecov
   - coveralls

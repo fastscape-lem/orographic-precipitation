@@ -1,3 +1,4 @@
 [run]
 omit =
+    */tests*
     orographic_precipitation/_version.py
