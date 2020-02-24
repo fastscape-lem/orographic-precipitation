@@ -3,6 +3,11 @@ Linear Theory of Orographic Precipitation
 
 .. image:: https://travis-ci.com/rlange2/orographic-precipitation.svg?branch=master
     :target: https://travis-ci.com/rlange2/orographic-precipitation
+.. image:: https://coveralls.io/repos/github/rlange2/orographic-precipitation/badge.svg?branch=master
+    :target: https://coveralls.io/github/rlange2/orographic-precipitation?branch=master
+
+
+
 
 A `Python`_ framework that implements the Linear Theory of Orographic Precipitation
 following `Smith & Barstad (2004)`_.
