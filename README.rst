@@ -26,7 +26,7 @@ Required dependencies:
 
 .. _`numpy`: https://numpy.org
 
-orographic precipitation can be installed using ``pip``::
+orographic_precipitation can be installed using ``pip``::
 
     $ pip install orographic_precipitation
 
