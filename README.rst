@@ -1,7 +1,7 @@
 Linear Theory of Orographic Precipitation
 =========================================
 
-|Build| |Coverage| |License|
+|Build| |Coverage| |License| |UpToDate|
 
 A `Python`_ framework that implements the Linear Theory of Orographic Precipitation
 following `Smith & Barstad (2004)`_.
@@ -14,6 +14,9 @@ following `Smith & Barstad (2004)`_.
    :alt: Coverage Status
 .. |License| image:: https://img.shields.io/badge/License-MIT-yellow.svg
    :target: https://opensource.org/licenses/MIT
+.. |UpToDate| image:: https://pyup.io/repos/github/rlange2/orographic-precipitation/shield.svg
+   :target: https://pyup.io/repos/github/rlange2/orographic-precipitation/
+   :alt: Updates
 .. _`Python`: https://www.python.org
 .. _`Smith & Barstad (2004)`: https://journals.ametsoc.org/doi/full/10.1175/1520-0469%282004%29061%3C1377%3AALTOOP%3E2.0.CO%3B2
 
