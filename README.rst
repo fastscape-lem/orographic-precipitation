@@ -9,7 +9,7 @@ following `Smith & Barstad (2004)`_.
 .. |Build| image:: https://travis-ci.com/rlange2/orographic-precipitation.svg?branch=master
    :target: https://travis-ci.com/rlange2/orographic-precipitation
    :alt: Build Status
-.. |Coverage| image:: https://coveralls.io/repos/github/rlange2/orographic-precipitation/badge.svg?branch=master
+.. |Coverage| image:: https://img.shields.io/coveralls/github/rlange2/orographic-precipitation/master
    :target: https://coveralls.io/github/rlange2/orographic-precipitation?branch=master
    :alt: Coverage Status
 .. |License| image:: https://img.shields.io/badge/License-MIT-yellow.svg

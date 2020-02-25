@@ -8,6 +8,7 @@ install:
   - pip install coverage==4.5.4
 script:
   - pytest
+  - tox
   - coverage run -m pytest orographic_precipitation
   - "coverage run --source=orographic_precipitation setup.py test"
 
