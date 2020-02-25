@@ -5,7 +5,7 @@ import pytest
 from orographic_precipitation import compute_orographic_precip
 from orographic_precipitation.tests.fixture_orographic_precipitation import input_params
 
-pytest.mark.usefixtures(input_params)
+#pytest.mark.usefixtures(input_params)
 def test_compute_orographic_precip(input_params):
     dx = dy = 0.01
     length = 1.5
@@ -16,4 +16,4 @@ def test_compute_orographic_precip(input_params):
 
     output = compute_orographic_precip(z, dx, dy, **input_params)
 
-    assert type(output).__module__ == np.__name__, print(f"type: {type(output).__module__ }, np: {np.__name__}")
+    assert type(output).__module__ == np.__name__
