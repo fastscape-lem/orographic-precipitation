@@ -9,6 +9,7 @@ install:
 script:
   - pytest
   - coverage run -m pytest orographic_precipitation
+  - "coverage run --source=orographic_precipitation setup.py test"
 
 after_success:
   - coveralls
