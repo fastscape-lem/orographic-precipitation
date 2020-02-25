@@ -17,3 +17,7 @@ def test_compute_orographic_precip(input_params):
     output = compute_orographic_precip(z, dx, dy, **input_params)
 
     assert type(output).__module__ == np.__name__
+    assert z.shape == output.shape
+
+if __name__ == '__main__':
+    main()
