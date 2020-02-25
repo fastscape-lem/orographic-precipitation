@@ -9,8 +9,8 @@ pytest.mark.usefixtures(input_params)
 def test_compute_orographic_precip(input_params):
     dx = dy = 0.01
     length = 1.5
-    x = np.arange(0, length, dx)
-    y = np.arange(0, length, dy)
+    x = np.arange(0.1, length, dx)
+    y = np.arange(0.1, length, dy)
     xx, yy = np.meshgrid(x, y, sparse=True)
     z = np.sin(xx**2 + yy**2) / (xx**2 + yy**2)
 
