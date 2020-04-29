@@ -57,13 +57,13 @@ hydrometeor density.
 Application of the Fourier transform yields the transfer function that relates the
 Fourier transform of the topography (``hhat``) to the transform of the precipitation field (``P_karot``).
 
-.. image:: doc/_static/phat_eqn.png
+.. image:: _static/phat_eqn.png
    :width: 400px
 
 The first factor in the denominator describes how the source term is modified by
 airflow dynamics. Here, the vertical wave number ``m`` with
 
-.. image:: doc/_static/m_eqn.png
+.. image:: _static/m_eqn.png
    :width: 400px
 
 controls the depth and tilt of the forced air ascent. The two remaining factors
