@@ -32,7 +32,7 @@ def compute_orographic_precip(elevation, dx, dy, **param):
     Returns
     -------
     array_like
-        2D array structure the same size as elevation with precipitation [mm hr-1]
+        2D array structure the same size as elevation with precipitation rate [mm hr-1]
     """
 
     # --- wind components
