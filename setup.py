@@ -18,5 +18,5 @@ setuptools.setup(
      maintainer_email="raphael.lange@gfz-potsdam.de",
      packages=setuptools.find_packages(),
      python_requires=">=3.6",
-     install_requires=["matplotlib", "numpy"]
+     install_requires=["numpy","xarray-simlab"]
  )
