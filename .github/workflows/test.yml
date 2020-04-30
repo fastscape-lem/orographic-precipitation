@@ -1,0 +1,44 @@
+name: test
+
+on:
+  push:
+    branches:
+      - 'master'
+
+jobs:
+  test:
+    name: pytest (${{ matrix.cfg.env-name }}, ${{matrix.cfg.os}})
+    runs-on: ${{ matrix.cfg.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        cfg:
+          - {os: ubuntu-latest, env-name: py36}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install miniconda
+        uses: goanpeca/setup-miniconda@v1
+        with:
+          auto-update-conda: true
+          activate-environment: test_env_py36
+          environment-file: ci/requirements/py36.yml
+          auto-activate-base: false
+      - name: Conda info
+        shell: bash -l {0}
+        run: conda info
+      - name: Conda list
+        shell: bash -l {0}
+        run: conda list
+      - name: Install orographic_precipitation
+        shell: bash -l {0}
+        run: |
+          pip install --no-deps -e .
+          python -OO -c "import orographic_precipitation"
+      - name: Run tests
+        shell: bash -l {0}
+        run: pytest orographic_precipitation --cov=orographic_precipitation --cov-report term-missing --cov-report xml --verbose --color=yes
+        continue-on-error: ${{ matrix.cfg.allow-failure }}
+      - name: Codecov
+        if: matrix.cfg.codecov
+        uses: codecov/codecov-action@v1
