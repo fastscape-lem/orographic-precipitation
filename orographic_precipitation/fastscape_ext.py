@@ -8,6 +8,8 @@ from .orographic_precipitation import compute_orographic_precip
 @xs.process
 class OrographicPrecipitation:
     """Computes orographic precipitation following Smith & Barstad (2004)
+
+    Returns precipitation rate in m/yr
     """
     # --- initial conditions
     gamma = xs.variable(description="adiabatic lapse rate")
@@ -54,4 +56,4 @@ class OrographicPrecipitation:
                                                 self.dx,
                                                 self.dy,
                                                 **_params)
-        self.precip = self.precip_rate[:] * dt
+        self.precip_rate = self.precip_rate[:] * 8.76
