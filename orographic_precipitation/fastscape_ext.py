@@ -35,7 +35,6 @@ class OrographicPrecipitation:
 
     # --- output variable
     precip_rate = xs.variable(dims=("y", "x"), description="precipitation rate", intent="out")
-    precip = xs.variable(dims=("y", "x"), description="precipitation", intent="out")
 
     def _get_params(self):
         return {"latitude" : self.latitude,
