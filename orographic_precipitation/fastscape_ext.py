@@ -37,13 +37,8 @@ class OrographicPrecipitation:
     precip_rate = xs.variable(dims=("y", "x"), description="precipitation rate", intent="out")
     precip = xs.variable(dims=("y", "x"), description="precipitation", intent="out")
 
-    def initialize(self):
-        self.cw = self.rhosref * self.gamma_m / self.gamma
-        self.precip_rate = np.zeros(self.shape)
-
-    @xs.runtime(args="step_delta")
-    def run_step(self, dt):
-        _params = {"latitude" : self.latitude,
+    def _get_params(self):
+        return {"latitude" : self.latitude,
                    "p0" : self.p0,
                    "windspeed" : self.windspeed,
                    "winddir" : self.winddir,
@@ -51,9 +46,16 @@ class OrographicPrecipitation:
                    "tau_f" : self.tau_f,
                    "nm" : self.nm,
                    "hw" : self.hw,
-                   "cw" : self.cw}
+                   "cw" : self.rhosref * self.gamma_m / self.gamma}
+
+    def initialize(self):
+        self._params = self._get_params()
+        self.precip_rate = np.zeros(self.shape)
+
+    def run_step(self, dt):
+        self._params.update(self._get_params())
         self.precip_rate = compute_orographic_precip(self.elevation,
                                                 self.dx,
                                                 self.dy,
-                                                **_params)
+                                                **self._params)
         self.precip_rate = self.precip_rate[:] * 8.76
