@@ -1,7 +1,8 @@
 import numpy as np
 import xsimlab as xs
 
-from fastscape.processes import SurfaceTopography, UniformRectilinearGrid2D
+from fastscape.models import basic_model
+from fastscape.processes import FlowAccumulator, SurfaceTopography, UniformRectilinearGrid2D
 from .orographic_precipitation import compute_orographic_precip
 
 
@@ -58,3 +59,25 @@ class OrographicPrecipitation:
                                                 self.dy,
                                                 **self._params)
         self.precip_rate = self.precip_rate[:] * 8.76
+
+
+@xs.process
+class Discharge(FlowAccumulator):
+    runoff = xs.foreign(OrographicPrecipitation, 'precip_rate', attrs={"units": "mm/h"})
+    discharge = xs.on_demand(dims=('y','x'), description='discharge from orographic precipitation', attrs={"units": "mm/h"})
+
+    def run_step(self):
+        super().run_step()
+
+        # scale mm/h to m/yr
+        self.flowacc *= 8.76
+
+    @discharge.compute
+    def _discharge(self):
+        return self.flowacc / 8.76
+
+
+precip_model = basic_model.update_processes({
+    'orographic': OrographicPrecipitation,
+    'drainage': Discharge
+})
