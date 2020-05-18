@@ -51,7 +51,7 @@ class OrographicPrecipitation:
         self._params = self._get_params()
         self.precip_rate = np.zeros(self.shape)
 
-    def run_step(self, dt):
+    def run_step(self):
         self._params.update(self._get_params())
         self.precip_rate = compute_orographic_precip(self.elevation,
                                                 self.dx,
