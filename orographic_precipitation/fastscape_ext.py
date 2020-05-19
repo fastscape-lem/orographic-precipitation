@@ -1,4 +1,3 @@
-import attr
 import numpy as np
 import xsimlab as xs
 
