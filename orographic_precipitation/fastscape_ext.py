@@ -38,6 +38,8 @@ class OrographicPrecipitation:
     )
 
     def _get_params(self):
+        self.cw = self.ref_density * self.lapse_rate_m / self.lapse_rate
+
         return {
             "latitude" : self.latitude,
             "precip_base" : self.precip_base,
@@ -47,7 +49,7 @@ class OrographicPrecipitation:
             "fall_time" : self.fall_time,
             "nm" : self.nm,
             "hw" : self.hw,
-            "cw" : self.ref_density * self.lapse_rate_m / self.lapse_rate}
+            "cw" : self.cw}
 
     def initialize(self):
         self._params = self._get_params()
