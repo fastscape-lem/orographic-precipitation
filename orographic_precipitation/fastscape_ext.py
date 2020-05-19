@@ -13,18 +13,28 @@ class OrographicPrecipitation:
     # --- initial conditions
     lapse_rate = xs.variable(description="adiabatic lapse rate")
     lapse_rate_m = xs.variable(description="moist adiabatic lapse rate")
-    ref_density = xs.variable(description="reference density")
+    ref_density = xs.variable(description="reference saturation water vapor density",
+                              attrs={"units": "kg/m^3"})
 
     # --- input variables
-    latitude = xs.variable(description="latitude")
-    precip_base = xs.variable(description="background precipitation")
-    wind_speed = xs.variable(description="windspeed")
-    wind_dir = xs.variable(description="wind direction")
-    conv_time = xs.variable(description="conversion time")
-    fall_time = xs.variable(description="fallout time")
-    nm = xs.variable(description="moist stability frequency")
-    hw = xs.variable(description="water vapor scale height")
-    cw = xs.variable(description="uplift sensitivity", intent="out")
+    latitude = xs.variable(description="latitude",
+                           attrs={"units": "degrees"})
+    precip_base = xs.variable(description="background, non-orographic precipitation rate",
+                              attrs={"units": "mm/h"})
+    wind_speed = xs.variable(description="wind speed",
+                             attrs={"units": "m/s"})
+    wind_dir = xs.variable(description="wind direction (azimuth)",
+                           attrs={"units": "degrees"})
+    conv_time = xs.variable(description="conversion time",
+                           attrs={"units": "s"})
+    fall_time = xs.variable(description="fallout time",
+                           attrs={"units": "s"})
+    nm = xs.variable(description="moist stability frequency",
+                           attrs={"units": "1/s"})
+    hw = xs.variable(description="water vapor scale height",
+                           attrs={"units": "m"})
+    cw = xs.variable(description="uplift sensitivity", intent="out",
+                           attrs={"units": "kg/m^3"})
 
     # --- variables needed for computation
     dx = xs.foreign(UniformRectilinearGrid2D, "dx")
