@@ -75,22 +75,26 @@ class OrographicPrecipitation:
 
 @xs.process
 class OrographicDrainageDischarge(FlowAccumulator):
-    """Flowaccumulation including orographic precipitation
+    """Accumulate orographic precipitation from upstream to downstream.
+
+    For use in the context of landscape evolution modeling, ``flowacc`` values
+    are converted from mm^3 h^-1 to m^3 yr^-1. For convenience, the ``discharge``
+    on demand variable still returns the values in mm^3 h^-1.  
     """
     runoff = xs.foreign(OrographicPrecipitation, 'precip_rate')
     discharge = xs.on_demand(
-        dims=('y','x'), description='discharge from orographic precipitation', attrs={"units": "mm/h"}
+        dims=('y','x'), description='discharge from orographic precipitation', attrs={"units": "mm^3/h"}
     )
 
     def run_step(self):
         super().run_step()
 
-        # scale mm/h to m/yr
-        self.flowacc *= 8.76
+        # scale mm^3/h to m^3/yr
+        self.flowacc *= 8.76e-6
 
     @discharge.compute
     def _discharge(self):
-        return self.flowacc / 8.76
+        return self.flowacc / 8.76e-6
 
 
 precip_model = basic_model.update_processes({
