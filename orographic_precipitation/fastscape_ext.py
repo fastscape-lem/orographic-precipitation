@@ -16,7 +16,7 @@ class OrographicPrecipitation:
     ref_density = xs.variable(description="reference density")
 
     # --- input variables
-    lat = xs.variable(description="latitude")
+    latitude = xs.variable(description="latitude")
     precip_base = xs.variable(description="background precipitation")
     wind_speed = xs.variable(description="windspeed")
     wind_dir = xs.variable(description="wind direction")
@@ -39,12 +39,12 @@ class OrographicPrecipitation:
 
     def _get_params(self):
         return {
-            "latitude" : self.lat,
-            "p0" : self.precip_base,
-            "windspeed" : self.wind_speed,
-            "winddir" : self.wind_dir,
-            "tau_c" : self.conv_time,
-            "tau_f" : self.fall_time,
+            "latitude" : self.latitude,
+            "precip_base" : self.precip_base,
+            "wind_speed" : self.wind_speed,
+            "wind_dir" : self.wind_dir,
+            "conv_time" : self.conv_time,
+            "fall_time" : self.fall_time,
             "nm" : self.nm,
             "hw" : self.hw,
             "cw" : self.ref_density * self.lapse_rate_m / self.lapse_rate}
