@@ -11,9 +11,14 @@ class OrographicPrecipitation:
     """Computes orographic precipitation following Smith & Barstad (2004)
     """
     # --- initial conditions
-    lapse_rate = xs.variable(description="adiabatic lapse rate")
-    lapse_rate_m = xs.variable(description="moist adiabatic lapse rate")
+    lapse_rate = xs.variable(description="environmental lapse rate",
+                             default=-4,
+                             attrs={"units": "degrees Celsius/km"})
+    lapse_rate_m = xs.variable(description="moist adiabatic lapse rate",
+                               default=-7,
+                               attrs={"units": "degrees Celsius/km"})
     ref_density = xs.variable(description="reference saturation water vapor density",
+                              default=7.4e-3,
                               attrs={"units": "kg/m^3"})
 
     # --- input variables
@@ -26,15 +31,17 @@ class OrographicPrecipitation:
     wind_dir = xs.variable(description="wind direction (azimuth)",
                            attrs={"units": "degrees"})
     conv_time = xs.variable(description="conversion time",
-                           attrs={"units": "s"})
+                            attrs={"units": "s"})
     fall_time = xs.variable(description="fallout time",
                            attrs={"units": "s"})
     nm = xs.variable(description="moist stability frequency",
-                           attrs={"units": "1/s"})
+                     default=0.0104,
+                     attrs={"units": "1/s"})
     hw = xs.variable(description="water vapor scale height",
-                           attrs={"units": "m"})
+                     default=3400,
+                     attrs={"units": "m"})
     cw = xs.variable(description="uplift sensitivity", intent="out",
-                           attrs={"units": "kg/m^3"})
+                     attrs={"units": "kg/m^3"})
 
     # --- variables needed for computation
     dx = xs.foreign(UniformRectilinearGrid2D, "dx")
