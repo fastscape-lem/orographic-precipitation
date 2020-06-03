@@ -9,6 +9,49 @@ from .orographic_precipitation import compute_orographic_precip
 @xs.process
 class OrographicPrecipitation:
     """Computes orographic precipitation following Smith & Barstad (2004)
+
+    Attributes
+    ----------
+
+    lapse_rate : float, default -4 [degrees Celsius/km]
+        Denotes at which rate an atmospheric variable falls with altitude.
+
+    lapse_rate_m : float, default -7 [degrees Celsius/km]
+        Rate at which a saturated parcel of air warms or cools when it moves vertically.
+
+    ref_density : float, default 7.4e-3 [kg/m^3]
+        Reference value of saturated water vapor density
+
+    latitude : float, typical range 0-90 [degrees]
+        Geographic coordinate denoting the north-south angular position of a point on Earth.
+
+    precip_base : float, typical range 0-10 [mm/hr]
+        Non-orographic, uniform precipitation rate.
+
+    wind_speed : float, [m/s]
+        Wind flow speed.
+
+    wind_dir : float, [0: north, 270: west]
+        Wind direction in azimuth degrees.
+
+    conv_time : float, typical range 200-2000 [s]
+        Cloud water to hydrometeor conversion time.
+
+    fall_time : float, typical range 200-2000 [s]
+        Hydrometeor fallout time.
+
+    nm : float, default 0.01, typical range 0-0.1 [1/s]
+        Moist stability frequency.
+
+    hw  : float, default 3400, typical range 1000-3000 [m]
+        Water vapor scale height.
+
+    cw : float, typical range 0.001-0.02 [kg/m^3]
+        Uplift sensitivity factor. Product of saturation water
+        vapor sensitivity ref_density [kg m-3] and environmental
+        lapse rate (lapse_rate_m / lapse_rate)
+
+    Note: Default values are based on the original publication (see Appendix).
     """
     # --- initial conditions
     lapse_rate = xs.variable(description="environmental lapse rate",
@@ -35,7 +78,7 @@ class OrographicPrecipitation:
     fall_time = xs.variable(description="fallout time",
                            attrs={"units": "s"})
     nm = xs.variable(description="moist stability frequency",
-                     default=0.0104,
+                     default=0.01,
                      attrs={"units": "1/s"})
     hw = xs.variable(description="water vapor scale height",
                      default=3400,
