@@ -24,7 +24,7 @@ def compute_orographic_precip(elevation, dx, dy, **param):
     wind_speed (float) : [m s-1]
     wind_dir (float) : wind direction [0: north, 270: west]
     conv_time (float) : cloud water to hydrometeor conversion time [s]
-    fall_time (float) : hydrometero fallout time [s]
+    fall_time (float) : hydrometeor fallout time [s]
     nm (float) : moist stability frequency [s-1]
     hw (float) : water vapor scale height [m]
     cw (float) : uplift sensitivity [kg m-3], product of saturation water vapor sensitivity ref_density [kg m-3] and environmental lapse rate (lapse_rate_m / lapse_rate)
