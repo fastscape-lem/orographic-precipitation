@@ -105,20 +105,20 @@ Usage
 
 .. code-block:: python
 
-    gamma = -5.8    #-6.49
-    Gamma_m = -6.5  #-5
-    rhosref = 7.4e-3
+    lapse_rate = -5.8
+    lapse_rate_m = -6.5
+    ref_density = 7.4e-3
 
     param = {
     'latitude': 40,
-    'p0': 7,                          # uniform precipitation rate
-    'windspeed': 10,
-    'winddir': 270,                   # wind direction (270: west)
-    'tau_c': 1000,                    # conversion time
-    'tau_f': 1000,                    # fallout time
+    'precip_base': 7,                          # uniform precipitation rate
+    'wind_speed': 10,
+    'wind_dir': 270,                   # wind direction (270: west)
+    'conv_time': 1000,                    # conversion time
+    'fall_time': 1000,                    # fallout time
     'nm': 0.005,                      # moist stability frequency
     'hw': 5000,                       # water vapor scale height
-    'cw': rhosref * Gamma_m / gamma   # uplift sensitivity
+    'cw': ref_density * lapse_rate_m / lapse_rate   # uplift sensitivity
     }
 
     P = compute_orographic_precip(elevation, dx, dy, **param)
