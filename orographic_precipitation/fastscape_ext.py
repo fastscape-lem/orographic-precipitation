@@ -10,48 +10,21 @@ from .orographic_precipitation import compute_orographic_precip
 class OrographicPrecipitation:
     """Computes orographic precipitation following Smith & Barstad (2004)
 
-    Attributes
-    ----------
+    Common bounds
+    -------------
 
-    lapse_rate : float, default -4 [degrees Celsius/km]
-        Denotes at which rate an atmospheric variable falls with altitude.
+    latitude : 0-90 [degrees]
+    precip_base : 0-10 [mm/hr]
+    conv_time :  200-2000 [s]
+    fall_time :  200-2000 [s]
+    nm :  0-0.1 [1/s]
+    hw  : 1000-5000 [m]
+    cw :  0.001-0.02 [kg/m^3]
 
-    lapse_rate_m : float, default -7 [degrees Celsius/km]
-        Rate at which a saturated parcel of air warms or cools when it moves vertically.
+    Default values
+    --------------
 
-    ref_density : float, default 7.4e-3 [kg/m^3]
-        Reference value of saturated water vapor density
-
-    latitude : float, typical range 0-90 [degrees]
-        Geographic coordinate denoting the north-south angular position of a point on Earth.
-
-    precip_base : float, typical range 0-10 [mm/hr]
-        Non-orographic, uniform precipitation rate.
-
-    wind_speed : float, [m/s]
-        Wind flow speed.
-
-    wind_dir : float, [0: north, 270: west]
-        Wind direction in azimuth degrees.
-
-    conv_time : float, typical range 200-2000 [s]
-        Cloud water to hydrometeor conversion time.
-
-    fall_time : float, typical range 200-2000 [s]
-        Hydrometeor fallout time.
-
-    nm : float, default 0.01, typical range 0-0.1 [1/s]
-        Moist stability frequency.
-
-    hw  : float, default 3400, typical range 1000-3000 [m]
-        Water vapor scale height.
-
-    cw : float, typical range 0.001-0.02 [kg/m^3]
-        Uplift sensitivity factor. Product of saturation water
-        vapor sensitivity ref_density [kg m-3] and environmental
-        lapse rate (lapse_rate_m / lapse_rate)
-
-    Note: Default values are based on the original publication (see Appendix).
+    Default values are based on the original publication (see Appendix).
     """
     # --- initial conditions
     lapse_rate = xs.variable(description="environmental lapse rate",
@@ -74,9 +47,11 @@ class OrographicPrecipitation:
     wind_dir = xs.variable(description="wind direction (azimuth)",
                            attrs={"units": "degrees"})
     conv_time = xs.variable(description="conversion time",
+                            default=1000,
                             attrs={"units": "s"})
     fall_time = xs.variable(description="fallout time",
-                           attrs={"units": "s"})
+                            default=1000,
+                            attrs={"units": "s"})
     nm = xs.variable(description="moist stability frequency",
                      default=0.01,
                      attrs={"units": "1/s"})
@@ -112,15 +87,13 @@ class OrographicPrecipitation:
             "cw" : self.cw}
 
     def initialize(self):
-        self._params = self._get_params()
         self.precip_rate = np.zeros(self.shape)
 
     def run_step(self):
-        self._params.update(self._get_params())
         self.precip_rate = compute_orographic_precip(self.elevation,
                                                 self.dx,
                                                 self.dy,
-                                                **self._params)
+                                                **self._get_params())
 
 
 @xs.process
