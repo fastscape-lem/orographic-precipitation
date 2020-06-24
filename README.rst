@@ -35,7 +35,14 @@ Required dependencies:
 * Python 3.6 or later
 * `numpy`_
 
+Optional dependencies (required for fastscape extension):
+
+* `fastscape`_
+* `xarray-simlab`_
+
 .. _`numpy`: https://numpy.org
+.. _`fastscape`: https://github.com/fastscape-lem/fastscape
+.. _`xarray-simlab`: https://github.com/benbovy/xarray-simlab
 
 orographic_precipitation can be installed using ``pip``::
 
