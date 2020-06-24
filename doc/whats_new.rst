@@ -3,10 +3,10 @@ Release Notes
 
 v1.0 (24 June 2020)
 -------------------
-- `OrographicPrecipitation` and `OrographicDrainageDischarge` have been added as a `Fastscape`_
+- ``OrographicPrecipitation`` and ``OrographicDrainageDischarge`` have been added as a `Fastscape`_
   extension that work seamlessly with the `xarray-simlab`_ framework (:issue:`2`)
-- `OrographicPrecipitation` computes the precipitation rate given a predefined elevation
-- `OrographicDrainageDischarge` accumulates orographic precipitation from upstream to downstream
+- ``OrographicPrecipitation`` computes the precipitation rate given a predefined elevation
+- ``OrographicDrainageDischarge`` accumulates orographic precipitation from upstream to downstream
 - orographic_precipitation is now part of the `Fastscape LEM`_ software stack!
 
 .. _`Fastscape`: https://github.com/fastscape-lem/fastscape
