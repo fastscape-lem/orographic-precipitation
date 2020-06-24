@@ -20,14 +20,14 @@ def compute_orographic_precip(elevation, dx, dy, **param):
     param kwargs
     ----------------
     latitude (float) : Coriolis effect decreases as latitude decreases
-    p0 (float) : uniform precipitation rate [mm hr-1], usually [0, 10]
-    windspeed (float) : [m s-1]
-    winddir (float) : wind direction [0: north, 270: west]
-    tau_c (float) : conversion time delay [s]
-    tau_f (float) : fallout time delay [s]
+    precip_base (float) : non-orographic, uniform precipitation rate [mm hr-1], usually [0, 10]
+    wind_speed (float) : [m s-1]
+    wind_dir (float) : wind direction [0: north, 270: west]
+    conv_time (float) : cloud water to hydrometeor conversion time [s]
+    fall_time (float) : hydrometeor fallout time [s]
     nm (float) : moist stability frequency [s-1]
     hw (float) : water vapor scale height [m]
-    cw (float) : uplift sensitivity [kg m-3], product of saturation water vapor sensitivity rhosref [kg m-3] and environmental lapse rate (gamma/gamma_n)
+    cw (float) : uplift sensitivity [kg m-3], product of saturation water vapor sensitivity ref_density [kg m-3] and environmental lapse rate (lapse_rate_m / lapse_rate)
 
     Returns
     -------
@@ -36,8 +36,8 @@ def compute_orographic_precip(elevation, dx, dy, **param):
     """
 
     # --- wind components
-    u0 = -np.sin(param['winddir'] * 2 * np.pi / 360) * param['windspeed']
-    v0 = np.cos(param['winddir'] * 2 * np.pi / 360) * param['windspeed']
+    u0 = -np.sin(param['wind_dir'] * 2 * np.pi / 360) * param['wind_speed']
+    v0 = np.cos(param['wind_dir'] * 2 * np.pi / 360) * param['wind_speed']
 
     # --- other factors
     f_coriolis = 2 * 7.2921e-5 * np.sin(param['latitude'] * np.pi / 180)
@@ -79,14 +79,14 @@ def compute_orographic_precip(elevation, dx, dy, **param):
     # --- transfer function
     P_karot = ((param['cw'] * 1j * sigma * hhat) /
                ((1 - (param['hw'] * m * 1j)) *
-                (1 + (sigma * param['tau_c'] * 1j)) *
-                (1 + (sigma * param['tau_f'] * 1j))))
+                (1 + (sigma * param['conv_time'] * 1j)) *
+                (1 + (sigma * param['fall_time'] * 1j))))
 
     # --- inverse FFT, de-pad, convert units, add uniform rate
     P = np.fft.ifft2(P_karot)
     P = np.real(P[pad:-pad, pad:-pad])
     P *= 3600   # mm hr-1
-    P += param['p0']
+    P += param['precip_base']
     P[P < 0] = 0
 
     return P

@@ -6,3 +6,5 @@ dependencies:
   - pytest
   - pytest-cov
   - numpy
+  - fastscape
+  - xarray-simlab
