@@ -42,6 +42,8 @@ class OrographicPrecipitation:
                            attrs={"units": "degrees"})
     precip_base = xs.variable(description="background, non-orographic precipitation rate",
                               attrs={"units": "mm/h"})
+    rainfall_frequency = xs.variable(description="daily rainfall frequency",
+                              attrs={"units": "1/day"}, intent='inout')
     wind_speed = xs.variable(description="wind speed",
                              attrs={"units": "m/s"})
     wind_dir = xs.variable(description="wind direction (azimuth)",
@@ -105,6 +107,7 @@ class OrographicDrainageDischarge(FlowAccumulator):
     on demand variable still returns the values in mm^3 h^-1.  
     """
     runoff = xs.foreign(OrographicPrecipitation, 'precip_rate')
+    rainfall_frequency = xs.foreign(OrographicPrecipitation, 'rainfall_frequency)
     discharge = xs.on_demand(
         dims=('y','x'), description='discharge from orographic precipitation', attrs={"units": "mm^3/h"}
     )
@@ -112,12 +115,13 @@ class OrographicDrainageDischarge(FlowAccumulator):
     def run_step(self):
         super().run_step()
 
-        # scale mm^3/h to m^3/yr
-        self.flowacc *= 8.76e-6
+        # scale mm m^2/h to m^3/yr assuming that
+        # the rainfall frequency is the number of storm of 1 hour duration per day
+        self.flowacc *= 8.76*self.rainfall_frequency
 
     @discharge.compute
     def _discharge(self):
-        return self.flowacc / 8.76e-6
+        return self.flowacc / (8.76*self.rainfall_frequency)
 
 
 precip_model = basic_model.update_processes({
