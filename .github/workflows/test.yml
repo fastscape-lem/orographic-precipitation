@@ -6,7 +6,7 @@ on:
       - 'master'
   pull_request:
     branches:
-    - 'master'
+      - 'master'
 
 jobs:
   test:
@@ -16,16 +16,16 @@ jobs:
       fail-fast: false
       matrix:
         cfg:
-          - {os: ubuntu-latest, env-name: py36}
+          - {os: ubuntu-latest, env-name: py39}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Install miniconda
-        uses: goanpeca/setup-miniconda@v1
+        uses: conda-incubator/setup-miniconda@v2
         with:
           auto-update-conda: true
-          activate-environment: test_env_py36
-          environment-file: ci/requirements/py36.yml
+          activate-environment: test_env_py39
+          environment-file: ci/requirements/py39.yml
           auto-activate-base: false
       - name: Conda info
         shell: bash -l {0}
