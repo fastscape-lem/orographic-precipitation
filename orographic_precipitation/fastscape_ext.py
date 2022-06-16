@@ -107,7 +107,7 @@ class OrographicDrainageDischarge(FlowAccumulator):
     on demand variable still returns the values in mm^3 h^-1.  
     """
     runoff = xs.foreign(OrographicPrecipitation, 'precip_rate')
-    rainfall_frequency = xs.foreign(OrographicPrecipitation, 'rainfall_frequency)
+    rainfall_frequency = xs.foreign(OrographicPrecipitation, 'rainfall_frequency')
     discharge = xs.on_demand(
         dims=('y','x'), description='discharge from orographic precipitation', attrs={"units": "mm^3/h"}
     )
@@ -117,11 +117,11 @@ class OrographicDrainageDischarge(FlowAccumulator):
 
         # scale mm m^2/h to m^3/yr assuming that
         # the rainfall frequency is the number of storm of 1 hour duration per day
-        self.flowacc *= 8.76*self.rainfall_frequency
+        self.flowacc *= 8.76 * self.rainfall_frequency
 
     @discharge.compute
     def _discharge(self):
-        return self.flowacc / (8.76*self.rainfall_frequency)
+        return self.flowacc / (8.76 * self.rainfall_frequency)
 
 
 precip_model = basic_model.update_processes({
