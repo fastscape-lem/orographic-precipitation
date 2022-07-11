@@ -19,7 +19,8 @@ def input_params():
         'lapse_rate': lapse_rate,
         'lapse_rate_m': lapse_rate_m,
         'ref_density': ref_density,
-        'cw': ref_density * lapse_rate_m / lapse_rate
+        'cw': ref_density * lapse_rate_m / lapse_rate,
+        'min_precip': 0.01
         }
 
     return params
