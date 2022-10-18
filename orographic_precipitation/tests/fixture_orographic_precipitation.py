@@ -9,6 +9,7 @@ def input_params():
     params = {
         'latitude': 0,
         'precip_base': 0,
+        'precip_min': 0.01,
         'rainfall_frequency': 0.1,
         'wind_speed': 15,
         'wind_dir': 270,
@@ -20,7 +21,6 @@ def input_params():
         'lapse_rate_m': lapse_rate_m,
         'ref_density': ref_density,
         'cw': ref_density * lapse_rate_m / lapse_rate,
-        'min_precip': 0.01
         }
 
     return params

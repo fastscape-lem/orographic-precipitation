@@ -14,20 +14,21 @@ class OrographicPrecipitation:
     -------------
 
     latitude : 0-90 [degrees]
-    precip_base : 0-10 [mm/hr]
+    precip_base : 0-10 [mm/h]
+    precip_min : 0.001 - 1  [mm/h]
     conv_time :  200-2000 [s]
     fall_time :  200-2000 [s]
     nm :  0-0.1 [1/s]
     hw  : 1000-5000 [m]
     cw :  0.001-0.02 [kg/m^3]
     rainfall_frequency : 0.1 - 24 [number of storms of 1 hour duration per day]
-    min_precip : 0.001 - 1  [mm/h]
+
 
     Default values
     --------------
 
     Default values are based on the original publication (see Appendix)
-    with the exception of 'rainfall_frequency' and 'min_precip',
+    with the exception of 'rainfall_frequency' and 'precip_min',
     which are used here to better scale precipitation into Fastscape.
     """
     # --- initial conditions
@@ -68,7 +69,7 @@ class OrographicPrecipitation:
     cw = xs.variable(description="uplift sensitivity", intent="out",
                      attrs={"units": "kg/m^3"})
 
-    min_precip = xs.variable(description="minimum precipitation",
+    precip_min = xs.variable(description="minimum precipitation",
                              default=0.01,
                              attrs={"units": "mm/h"})
 
@@ -96,7 +97,7 @@ class OrographicPrecipitation:
             "nm": self.nm,
             "hw": self.hw,
             "cw": self.cw,
-            "min_precip": self.min_precip}
+            "precip_min": self.precip_min}
 
     def initialize(self):
         self.precip_rate = np.zeros(self.shape)
@@ -135,6 +136,6 @@ class OrographicDrainageDischarge(FlowAccumulator):
 
 
 precip_model = basic_model.update_processes({
-    'orographic': OrographicPrecipitation,
+    'precipitation': OrographicPrecipitation,
     'drainage': OrographicDrainageDischarge
 })

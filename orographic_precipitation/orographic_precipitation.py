@@ -20,20 +20,22 @@ def compute_orographic_precip(elevation, dx, dy, **param):
     param kwargs
     ----------------
     latitude (float) : Coriolis effect decreases as latitude decreases
-    precip_base (float) : non-orographic, uniform precipitation rate [mm hr-1], usually [0, 10]
-    wind_speed (float) : [m s-1]
+    precip_base (float) : non-orographic, uniform precipitation rate [mm/h], usually [0, 10]
+    precip_min (float) : minimum precipitation [mm/h] when precipitation rate <= 0
+    wind_speed (float) : [m/s]
     wind_dir (float) : wind direction [0: north, 270: west]
     conv_time (float) : cloud water to hydrometeor conversion time [s]
     fall_time (float) : hydrometeor fallout time [s]
-    nm (float) : moist stability frequency [s-1]
+    nm (float) : moist stability frequency [1/s]
     hw (float) : water vapor scale height [m]
-    cw (float) : uplift sensitivity [kg m-3], product of saturation water vapor sensitivity ref_density [kg m-3] and environmental lapse rate (lapse_rate_m / lapse_rate)
-    min_precip (float) : minimum precipitation
+    cw (float) : uplift sensitivity [kg/m^3], product of saturation water vapor sensitivity ref_density [kg/m^3]
+                 and environmental lapse rate (lapse_rate_m / lapse_rate)
+
 
     Returns
     -------
     array_like
-        2D array structure the same size as elevation with precipitation rate [mm hr-1]
+        2D array structure the same size as elevation with precipitation rate [mm/h]
     """
 
     # --- wind components
@@ -89,6 +91,6 @@ def compute_orographic_precip(elevation, dx, dy, **param):
     P *= 3600  # mm hr-1
     P += param['precip_base']
     # precipitation rate must be a value greater than minimum precipitation/runoff to avoid errors when precip_rate <= 0
-    P[P <= 0] = param['min_precip']
+    P[P <= 0] = param['precip_min']
 
     return P
