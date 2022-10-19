@@ -1,9 +1,9 @@
-
-#!/usr/bin/env python
+# !/usr/bin/env python
 
 import numpy as np
 
 EPS = np.finfo(float).eps
+
 
 def compute_orographic_precip(elevation, dx, dy, **param):
     """Compute orographic precipitation.
@@ -20,19 +20,22 @@ def compute_orographic_precip(elevation, dx, dy, **param):
     param kwargs
     ----------------
     latitude (float) : Coriolis effect decreases as latitude decreases
-    precip_base (float) : non-orographic, uniform precipitation rate [mm hr-1], usually [0, 10]
-    wind_speed (float) : [m s-1]
+    precip_base (float) : non-orographic, uniform precipitation rate [mm/h], usually [0, 10]
+    precip_min (float) : minimum precipitation [mm/h] when precipitation rate <= 0
+    wind_speed (float) : [m/s]
     wind_dir (float) : wind direction [0: north, 270: west]
     conv_time (float) : cloud water to hydrometeor conversion time [s]
     fall_time (float) : hydrometeor fallout time [s]
-    nm (float) : moist stability frequency [s-1]
+    nm (float) : moist stability frequency [1/s]
     hw (float) : water vapor scale height [m]
-    cw (float) : uplift sensitivity [kg m-3], product of saturation water vapor sensitivity ref_density [kg m-3] and environmental lapse rate (lapse_rate_m / lapse_rate)
+    cw (float) : uplift sensitivity [kg/m^3], product of saturation water vapor sensitivity ref_density [kg/m^3]
+                 and environmental lapse rate (lapse_rate_m / lapse_rate)
+
 
     Returns
     -------
     array_like
-        2D array structure the same size as elevation with precipitation rate [mm hr-1]
+        2D array structure the same size as elevation with precipitation rate [mm/h]
     """
 
     # --- wind components
@@ -65,8 +68,8 @@ def compute_orographic_precip(elevation, dx, dy, **param):
     # --- vertical wave number (m)
     sigma = kx * u0 + ky * v0
 
-    mf_num = param['nm']**2 - sigma**2
-    mf_den = sigma**2 - f_coriolis**2
+    mf_num = param['nm'] ** 2 - sigma ** 2
+    mf_den = sigma ** 2 - f_coriolis ** 2
 
     # numerical stability
     mf_num[mf_num < 0] = 0.
@@ -74,7 +77,7 @@ def compute_orographic_precip(elevation, dx, dy, **param):
     mf_den[(mf_den > -EPS) & (mf_den < 0)] = -EPS
     sign = np.where(sigma >= 0, 1, -1)
 
-    m = sign * np.sqrt(np.abs(mf_num / mf_den * (kx**2 + ky**2)))
+    m = sign * np.sqrt(np.abs(mf_num / mf_den * (kx ** 2 + ky ** 2)))
 
     # --- transfer function
     P_karot = ((param['cw'] * 1j * sigma * hhat) /
@@ -85,8 +88,9 @@ def compute_orographic_precip(elevation, dx, dy, **param):
     # --- inverse FFT, de-pad, convert units, add uniform rate
     P = np.fft.ifft2(P_karot)
     P = np.real(P[pad:-pad, pad:-pad])
-    P *= 3600   # mm hr-1
+    P *= 3600  # mm hr-1
     P += param['precip_base']
-    P[P < 0] = 0
+    # precipitation rate must be a value greater than minimum precipitation/runoff to avoid errors when precip_rate <= 0
+    P[P <= 0] = param['precip_min']
 
     return P
