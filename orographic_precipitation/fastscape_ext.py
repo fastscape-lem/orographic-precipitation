@@ -136,6 +136,6 @@ class OrographicDrainageDischarge(FlowAccumulator):
 
 
 precip_model = basic_model.update_processes({
-    'precipitation': OrographicPrecipitation,
+    'orographic': OrographicPrecipitation,
     'drainage': OrographicDrainageDischarge
 })
