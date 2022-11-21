@@ -45,7 +45,7 @@ class OrographicPrecipitation:
     # --- input variables
     latitude = xs.variable(description="latitude",
                            attrs={"units": "degrees"})
-    precip_base = xs.variable(description="background, non-orographic precipitation rate",
+    precip_base = xs.variable(dims=('y', 'x'), description="background, non-orographic precipitation rate",
                               attrs={"units": "mm/h"})
     rainfall_frequency = xs.variable(description="daily rainfall frequency",
                                      default=1,
