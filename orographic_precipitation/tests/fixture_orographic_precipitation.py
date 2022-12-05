@@ -1,4 +1,7 @@
 import pytest
+import xarray as xr
+import numpy as np
+
 
 @pytest.fixture
 def input_params():
@@ -8,7 +11,7 @@ def input_params():
 
     params = {
         'latitude': 0,
-        'precip_base': 0,
+        'precip_base': np.ones((140,140)),
         'precip_min': 0.01,
         'rainfall_frequency': 0.1,
         'wind_speed': 15,
