@@ -23,8 +23,6 @@ def test_orographic_precipitation(input_params):
     
     p.initialize()
 
-    np.testing.assert_
-
     np.testing.assert_equal(p.precip_rate.shape, grid)
 
     p.run_step()
