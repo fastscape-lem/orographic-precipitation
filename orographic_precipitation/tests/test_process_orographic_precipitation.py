@@ -9,7 +9,7 @@ def test_orographic_precipitation(input_params):
 
     process_params = input_params.copy()
     process_params.pop("cw")
-    grid = (3, 2)
+    grid = (140, 140)
     elevation = np.random.uniform(size=grid)
     dx = dy = 0.1
     
