@@ -49,7 +49,7 @@ class OrographicPrecipitation:
                               attrs={"units": "mm/h"})
     rainfall_frequency = xs.variable(description="daily rainfall frequency",
                                      default=1,
-                                     attrs={"units": "1/day"}, intent='inout') #wants to be temproally variable, maybe solved with variable SPL
+                                     attrs={"units": "1/day"}, intent='inout')
     wind_speed = xs.variable(description="wind speed",
                              attrs={"units": "m/s"})
     wind_dir = xs.variable(description="wind direction (azimuth)",
