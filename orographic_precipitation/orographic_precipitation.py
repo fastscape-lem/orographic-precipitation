@@ -23,7 +23,7 @@ def compute_orographic_precip(elevation, dx, dy, **param):
     precip_base (float) : non-orographic, uniform precipitation rate [mm/h], usually [0, 10]
     precip_min (float) : minimum precipitation [mm/h] when precipitation rate <= 0
     wind_speed (float) : [m/s]
-    wind_dir (float) : wind direction [0: north, 270: west]
+    wind_dir (float) : wind direction [0: south, 270: west]
     conv_time (float) : cloud water to hydrometeor conversion time [s]
     fall_time (float) : hydrometeor fallout time [s]
     nm (float) : moist stability frequency [1/s]
