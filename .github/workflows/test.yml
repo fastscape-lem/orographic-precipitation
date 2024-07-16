@@ -1,32 +1,28 @@
-name: test
+name: test build
 
 on:
   push:
     branches:
-      - 'master'
+      - master
   pull_request:
     branches:
-      - 'master'
+      - master
 
 jobs:
   test:
-    name: pytest (${{ matrix.cfg.env-name }}, ${{matrix.cfg.os}})
-    runs-on: ${{ matrix.cfg.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        cfg:
-          - {os: ubuntu-latest, env-name: py39}
+    name: Run pytest
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Install miniconda
-        uses: conda-incubator/setup-miniconda@v2
+        uses: conda-incubator/setup-miniconda@v3
         with:
-          auto-update-conda: true
-          activate-environment: test_env_py39
-          environment-file: ci/requirements/py39.yml
-          auto-activate-base: false
+          mamba-version: "*"
+          channels: conda-forge,defaults
+          channel-priority: true
+          activate-environment: orographic-precipitation
+          environment-file: environment.yml
       - name: Conda info
         shell: bash -l {0}
         run: conda info

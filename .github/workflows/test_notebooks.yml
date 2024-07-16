@@ -1,4 +1,4 @@
-name: Test notebooks
+name: test notebooks
 
 on:
   push:
@@ -14,9 +14,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Install miniconda
-        uses: conda-incubator/setup-miniconda@v2
+        uses: conda-incubator/setup-miniconda@v3
         with:
           mamba-version: "*"
           channels: conda-forge,defaults
@@ -30,6 +30,10 @@ jobs:
         shell: bash -l {0}
         run: |
           mamba install papermill nbconvert
+      - name: Install orographic-precipitation
+        shell: bash -l {0}
+        run: |
+          pip install --no-deps -e .
       - name: Execute all notebooks
         shell: bash -l {0}
         run: python execute_all_notebooks.py
