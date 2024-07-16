@@ -25,10 +25,6 @@ jobs:
       - name: Conda info
         shell: bash -l {0}
         run: conda info
-      - name: Install dev dependencies
-        shell: bash -l {0}
-        run: |
-          mamba install papermill nbconvert
       - name: Install orographic-precipitation
         shell: bash -l {0}
         run: |
