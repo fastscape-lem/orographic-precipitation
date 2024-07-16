@@ -33,14 +33,14 @@ jobs:
       - name: Conda list
         shell: bash -l {0}
         run: conda list
-      - name: Install orographic_precipitation
+      - name: Install orographic-precipitation
         shell: bash -l {0}
         run: |
           pip install --no-deps -e .
           python -OO -c "import orographic_precipitation"
       - name: Run tests
         shell: bash -l {0}
-        run: pytest orographic_precipitation --cov=orographic_precipitation --cov-report term-missing --cov-report xml --verbose --color=yes
+        run: pytest orographic-precipitation --cov=orographic-precipitation --cov-report term-missing --cov-report xml --verbose --color=yes
         continue-on-error: ${{ matrix.cfg.allow-failure }}
       - name: Codecov
         if: matrix.cfg.codecov

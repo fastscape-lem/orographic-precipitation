@@ -1,0 +1,15 @@
+name: orographic_precipitation
+channels:
+  - conda-forge
+dependencies:
+    - python>=3.9
+    - numpy
+    - xarray-simlab
+    - fastscape
+    - jupyterlab
+    - ipykernel
+    - ipywidgets
+    - nb_conda_kernels
+    - matplotlib-base
+    - pytest
+    - pip

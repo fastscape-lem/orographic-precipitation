@@ -20,7 +20,7 @@ def compute_orographic_precip(elevation, dx, dy, **param):
     param kwargs
     ----------------
     latitude (float) : Coriolis effect decreases as latitude decreases
-    precip_base (float) : non-orographic, uniform precipitation rate [mm/h], usually [0, 10]
+    precip_base (float) : non-orographic, precipitation rate [mm/h], usually [0, 10]
     precip_min (float) : minimum precipitation [mm/h] when precipitation rate <= 0
     wind_speed (float) : [m/s]
     wind_dir (float) : wind direction [0: south, 270: west]
