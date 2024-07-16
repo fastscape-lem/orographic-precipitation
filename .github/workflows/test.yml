@@ -15,12 +15,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Install miniconda
-        uses: conda-incubator/setup-miniconda@v3
+      - name: Setup micromamba
+        uses: mamba-org/setup-micromamba@v1
         with:
-          mamba-version: "*"
-          channels: conda-forge,defaults
-          channel-priority: true
+          cache-environment: true
+          cache-downloads: false
           activate-environment: orographic-precipitation
           environment-file: environment.yml
       - name: Conda info
