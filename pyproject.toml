@@ -12,13 +12,12 @@ include = [
 
 [tool.setuptools_scm]
 fallback_version = "9999"
-version_file = "orographic_precipitation/_version.py"
 
 [project]
 name = "orographic_precipitation"
 dynamic = ["version"]
 authors = [
-    {name = "Raphael Lange", email = "raphael.lange@gfz-potsdam.de"},
+    {name = "Raphael Lange"},
 ]
 maintainers = [
     {name = "Fastscape contributors"},
