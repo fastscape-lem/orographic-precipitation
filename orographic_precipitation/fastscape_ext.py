@@ -69,7 +69,7 @@ class OrographicPrecipitation:
     cw = xs.variable(description="uplift sensitivity", intent="out",
                      attrs={"units": "kg/m^3"})
 
-    precip_min = xs.variable(description="minimum precipitation",
+    precip_min = xs.variable(description="minimum precipitation rate",
                              default=0.01,
                              attrs={"units": "mm/h"})
 

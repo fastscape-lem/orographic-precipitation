@@ -1,16 +1,16 @@
-name: test build
+name: test notebooks
 
 on:
   push:
     branches:
-      - master
+    - master
   pull_request:
     branches:
-      - master
+    - master
 
 jobs:
-  test:
-    name: Run pytest
+  run_all_notebooks:
+    name: Run all notebooks
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -24,18 +24,10 @@ jobs:
       - name: Conda info
         shell: bash -l {0}
         run: conda info
-      - name: Conda list
-        shell: bash -l {0}
-        run: conda list
       - name: Install orographic-precipitation
         shell: bash -l {0}
         run: |
           pip install --no-deps -e .
-          python -OO -c "import orographic_precipitation"
-      - name: Run tests
+      - name: Execute all notebooks
         shell: bash -l {0}
-        run: pytest orographic_precipitation -v
-        continue-on-error: ${{ matrix.cfg.allow-failure }}
-      - name: Codecov
-        if: matrix.cfg.codecov
-        uses: codecov/codecov-action@v1
+        run: python execute_all_notebooks.py

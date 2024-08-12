@@ -1,4 +1,0 @@
-include LICENSE
-include README.rst
-include versioneer.py
-include orographic_precipitation/_version.py
